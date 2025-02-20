@@ -1,0 +1,1 @@
+import subCategoryTable from "../database/SubCategorySchema";
