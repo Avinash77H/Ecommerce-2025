@@ -4,8 +4,6 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 dotenv.config({path:"./.env"});
 
-
-
 const app:Application = express();
 const port:number | undefined | null = Number(process.env.PORT) || 5000;
 const db_url:string | undefined | null = process.env.DB_URL;
@@ -14,7 +12,7 @@ const db_name : string | undefined | null = process.env.DB_NAME;
 app.use(express.json());
 
 // category router
-app.use("/",categoryRouter)
+app.use("/category",categoryRouter)
 
 if(port){
   app.listen(port,()=>{
