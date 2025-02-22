@@ -12,7 +12,7 @@ import { EcomCategory } from '../model/EcomCategory';
  */
 export const getAllCategory = async(request:Request,response:Response)=>{
  try{
-  const userData = await categoryTable.find();
+  const userData:EcomCategory[]  = await categoryTable.find();
   if(userData.length === 0){
     return response.status(404).json({message:"No Category Found!"});
   }
