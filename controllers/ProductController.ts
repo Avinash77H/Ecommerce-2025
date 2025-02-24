@@ -1,7 +1,7 @@
 import { EcomProduct } from "../model/EcomProduct";
 import productTable from "../database/ProductSchema";
 import {Request,Response} from 'express'
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 /**
   @usage : create product

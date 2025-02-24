@@ -1,5 +1,7 @@
+import mongoose from "mongoose";
+
 export interface EcomProduct {
-  sub_category_id:string,
+  sub_category_id:mongoose.Types.ObjectId,
   product_name:string,
   product_description:string,
   product_image:string,

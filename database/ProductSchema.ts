@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { EcomProduct } from "../model/EcomProduct";
 
 const productSchema = new mongoose.Schema({
-  sub_category_id:{type:String,required:true},
+  sub_category_id:{type:Schema.Types.ObjectId,ref:"SubCategory",required:true},
   product_name : {type:String,required:true},
   product_description:{type:String,required:true},
   product_image:{type:String,default:"https://rahulindesign.websites.co.in/twenty-nineteen/img/defaults/product-default.png"},
