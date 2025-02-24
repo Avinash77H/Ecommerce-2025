@@ -1,5 +1,7 @@
 import express,{Application,Request,Response} from 'express'
 import categoryRouter from './router/CategoryRouter';
+import subCategoryRouter from './router/SubCategoryRouter';
+import productRouter from './router/ProductRouter';
 import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 dotenv.config({path:"./.env"});
@@ -11,8 +13,14 @@ const db_name : string | undefined | null = process.env.DB_NAME;
 
 app.use(express.json());
 
-// category router
-app.use("/category",categoryRouter)
+// category Router
+app.use("/category",categoryRouter);
+
+// subCategory Router
+app.use("/subCategory",subCategoryRouter);
+
+// product Router
+app.use("/product",productRouter);
 
 if(port){
   app.listen(port,()=>{

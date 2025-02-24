@@ -64,14 +64,14 @@ export const getAllSubCategory = async(request:Request,response:Response)=>{
   @params : subCategoryId
   @url : http://localhost:9999/subCategory/:subCategoryId
  */
-export const getSubcategoryById = async(request:Request,response:Response)=>{
+export const getSubCategoryById = async(request:Request,response:Response)=>{
   try{
     const {subCategoryId} = request.params;
     if(!mongoose.Types.ObjectId.isValid(subCategoryId)){
       return response.status(400).json({message:"Invalid Id"});
     }
 
-    const theSubCategory = await subCategoryTable.findById(subCategoryId);
+    const theSubCategory:EcomSubCategory | null = await subCategoryTable.findById(subCategoryId);
 
     if(!theSubCategory){
       return response.status(404).json({message:"Catogary not found"})
@@ -81,6 +81,66 @@ export const getSubcategoryById = async(request:Request,response:Response)=>{
 
   }catch(error){
     console.log("Error Fetching subCategory",error);
+    response.status(500).json({message:"Internal Server Error"});
+  }
+}
+
+/**
+  @usage : update subCategory by id
+  @method : put
+  @params : subCategoryId
+  @url : http://localhost:9999/subCategory/:subCategoryId
+ */
+export const updateSubCategoryById = async(request:Request,response:Response)=>{
+  try{
+    const {subCategoryId} = request.params;
+    if(!mongoose.Types.ObjectId.isValid(subCategoryId)){
+      return response.status(400).json({message:"Invalid Id"});
+    }
+    const {sub_category_name,sub_category_description,sub_category_logo,sub} = request.body;
+
+  const updatedData:EcomSubCategory | null = await subCategoryTable.findByIdAndUpdate(subCategoryId,{
+    sub_category_name:sub_category_name,
+    sub_category_logo:sub_category_logo,
+    sub_category_description:sub_category_description
+  },{new:true});
+
+  if(!updatedData){
+    return response.status(404).json({message:"subCategory not found"});
+  }
+  
+   response.status(200).json({message:"subCategory Updated Successfully",data:updatedData});
+
+
+  }catch(error){
+    console.log("Error updating subCategory");
+   response.status(500).json({message:"Internal Server Error"});
+  }
+}
+
+/**
+  @usage : update subCategory status by id
+  @method : put
+  @params : subCategoryId
+  @url : http://localhost:9999/subCategory/deleteSubCategory/:subCategoryId
+ */
+export const updateSubCategoryStatus = async(request:Request,response:Response)=>{
+  try{
+    const {subCategoryId} = request.params;
+    if(!mongoose.Types.ObjectId.isValid(subCategoryId)){
+      return response.status(400).json({message:"Invalid Id"});
+    }
+
+    const updatedData:EcomSubCategory | null = await subCategoryTable.findByIdAndUpdate(subCategoryId,{isActive:false},{new:true});
+
+    if(!updatedData){
+      return response.status(404).json({message:"subCategory not found !"});
+    }
+    response.status(200).json({message:"subCategory Status updated Successfully",
+      data:updatedData
+    });
+  }catch(error){
+    console.log("Error updating subCategory Status",error);
     response.status(500).json({message:"Internal Server Error"});
   }
 }

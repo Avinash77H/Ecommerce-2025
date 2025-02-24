@@ -111,12 +111,12 @@ export const updateCategoryById = async(request:Request,response:Response)=>{
 }
 
 /**
-  @usage : delete category
+  @usage : update category status
   @method : put
   @params : categoryId
   @url : http://localhost:9999/category/deleteCategory/:categoryId
  */
-export const deleteCategoryById = async(request:Request,response:Response)=>{
+export const updateCatoryStatus = async(request:Request,response:Response)=>{
   try{
     const {categoryId} = request.params;
    
@@ -134,10 +134,9 @@ export const deleteCategoryById = async(request:Request,response:Response)=>{
 
     const updatedData:EcomCategory | null = await categoryTable.findByIdAndUpdate(mongoId,{
       isActive:false
-      // ...categoryData,isActive:categoryData.isActive = false
     },{new:true});
 
-    response.status(200).json({message:"Category Delete Sucessfully"});
+    response.status(200).json({message:"Category status updated Sucessfully"});
     
   }catch(error){
     console.error("error deleting category:",error);
