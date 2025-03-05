@@ -2,6 +2,7 @@ import express,{Application,Request,Response} from 'express'
 import categoryRouter from './router/CategoryRouter';
 import subCategoryRouter from './router/SubCategoryRouter';
 import productRouter from './router/ProductRouter';
+import userRouter from './router/UserRouter'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 dotenv.config({path:"./.env"});
@@ -21,6 +22,9 @@ app.use("/subCategory",subCategoryRouter);
 
 // product Router
 app.use("/product",productRouter);
+
+// user Router
+app.use("/users",userRouter);
 
 if(port){
   app.listen(port,()=>{
